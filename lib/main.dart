@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ufitness/placeholder_widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,6 +46,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int _currentIndex = 0;
+  final List<Widget> _children = [
+    PlaceholderWidget(Colors.white),
+    PlaceholderWidget(Colors.deepOrange),
+    PlaceholderWidget(Colors.green)
+  ];
 
   void _incrementCounter() {
     setState(() {
@@ -54,6 +61,12 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+    });
+  }
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
     });
   }
 
@@ -70,8 +83,49 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.more_vert),
+            onPressed: ()=> print("More Pressed"),
+          )
+        ],
       ),
-      body: Center(
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/ic_account_circle.png'),
+                backgroundColor: Colors.transparent,
+              ),
+              accountName: Text("Devon Orr"),
+              accountEmail: Text("dvn.orr@gmail.com"),
+              otherAccountsPictures: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.expand_more),
+                  color: Colors.white,
+                  onPressed: ()=> print("Expand Pressed"),
+                )
+              ],
+            ),
+            ListTile(
+              title: Text("Home"),
+              trailing: Icon(Icons.home),
+            ),
+            ListTile(
+              title: Text("Resources"),
+              trailing: Icon(Icons.ac_unit),
+            ),
+            Divider(),
+            ListTile(
+              title: Text("Settings"),
+              trailing: Icon(Icons.settings),
+            ),
+          ],
+        ),
+      ),
+      body: _children[_currentIndex],
+        /*Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
@@ -105,7 +159,26 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: onTabTapped,
+
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.accessibility),
+            title: Text("Workouts"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.timeline),
+            title: Text("My Stats"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            title: Text("Schedule"),
+          ),
+        ],
+      ),
     );
   }
 }
