@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ufitness/placeholder_widget.dart';
+import 'package:ufitness/workouts_widget.dart';
+import 'package:ufitness/stats_widget.dart';
+import 'package:ufitness/schedule_widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'uFitness',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'uFitness'),
     );
   }
 }
@@ -48,9 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _currentIndex = 0;
   final List<Widget> _children = [
-    PlaceholderWidget(Colors.white),
-    PlaceholderWidget(Colors.deepOrange),
-    PlaceholderWidget(Colors.green)
+    WorkoutsWidget(Colors.white),
+    StatsWidget(Colors.deepOrange),
+    ScheduleWidget(Colors.green)
   ];
 
   void _incrementCounter() {
@@ -113,8 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
               trailing: Icon(Icons.home),
             ),
             ListTile(
-              title: Text("Resources"),
-              trailing: Icon(Icons.ac_unit),
+              title: Text("Notifications"),
+              trailing: Icon(Icons.mail),
             ),
             Divider(),
             ListTile(
