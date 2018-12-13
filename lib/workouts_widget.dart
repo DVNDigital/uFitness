@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ufitness/workout_card_widget.dart';
 
 class WorkoutsWidget extends StatelessWidget {
   final Color color;
@@ -9,7 +10,12 @@ class WorkoutsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
 
-      color: color,
+      child: ListView(
+        children: <Widget>[
+          WorkoutCard(Colors.amber),
+          WorkoutCard(Colors.blue),
+        ],
+      ),
     );
   }
 
