@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ufitness/workouts_widget.dart';
+import 'package:ufitness/workout_card_widget.dart';
 import 'package:ufitness/stats_widget.dart';
 import 'package:ufitness/schedule_widget.dart';
+import 'package:async/async.dart';
 
 void main() => runApp(MyApp());
 
@@ -50,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _currentIndex = 0;
   final List<Widget> _children = [
-    WorkoutsWidget(Colors.white),
+    WorkoutsWidget(),
     StatsWidget(Colors.deepOrange),
     ScheduleWidget(Colors.green)
   ];
@@ -113,15 +115,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: Text("Home"),
               trailing: Icon(Icons.home),
+              onTap: ()=> print("Home Pressed"),
             ),
             ListTile(
               title: Text("Notifications"),
               trailing: Icon(Icons.mail),
+              onTap: ()=> print("Notifications Pressed"),
             ),
             Divider(),
             ListTile(
               title: Text("Settings"),
               trailing: Icon(Icons.settings),
+              onTap: ()=> print("Settings Pressed"),
             ),
           ],
         ),
