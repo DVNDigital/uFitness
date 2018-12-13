@@ -10,7 +10,7 @@ class WorkoutsWidget extends StatefulWidget {
 }
 
 class _WorkoutsWidgetState extends State<WorkoutsWidget>{
-  int _count = 0;
+  int _count = 1;
 
   @override
   Widget build(BuildContext context) {
