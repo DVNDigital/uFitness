@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ufitness/workouts_widget.dart';
-import 'package:ufitness/workout_card_widget.dart';
 import 'package:ufitness/stats_widget.dart';
 import 'package:ufitness/schedule_widget.dart';
-import 'package:async/async.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +10,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: Colors.green, //or set color with: Color(0xFF0000FF)
+      //statusBarBrightness: Brightness.light,
+    ));
     return MaterialApp(
+
       title: 'uFitness',
       theme: ThemeData(
         // This is the theme of your application.
@@ -23,7 +27,8 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
+        primaryIconTheme: IconThemeData(color: Colors.green),
       ),
       home: MyHomePage(title: 'uFitness'),
     );
@@ -49,7 +54,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   int _currentIndex = 0;
   final List<Widget> _children = [
     WorkoutsWidget(),
@@ -64,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      //_counter++;
     });
   }
 
@@ -86,7 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+
+        title: Text(widget.title, style: TextStyle(color: Colors.green),),
+        backgroundColor: Colors.white,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.more_vert),

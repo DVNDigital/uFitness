@@ -28,8 +28,7 @@ class _WorkoutsWidgetState extends State<WorkoutsWidget>{
   List<Widget> _getItems(){
     var items = <Widget>[];
     for(int i=0; i<_count; i++){
-      var item = WorkoutCard(Colors.white);
-      items.add(item);
+      items.add(WorkoutCard("Deadlifts","50, 60, 70, 80","256lbs"));
     }
     return items;
   }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 class WorkoutCard extends StatelessWidget{
-  final Color color;
+  //final String leading; //This is for the image
+  final String title;
+  final String subtitle;
+  final String trailing;
 
-  WorkoutCard(this.color);
+  WorkoutCard(this.title, this.subtitle, this.trailing);
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +15,13 @@ class WorkoutCard extends StatelessWidget{
         children: <Widget>[
           ListTile(
             leading: Icon(Icons.assignment_ind),
-            title: Text("Squats"),
-            subtitle: Text("50, 70, 90, 120"),
-            trailing: Text("Meh"),
+            title: Text(title),
+            subtitle: Text(subtitle),
+            trailing: Text(trailing),
             onTap: ()=> print("Card Pressed"),
           )
         ],
       ),
-      color: color,
     );
   }
 }
