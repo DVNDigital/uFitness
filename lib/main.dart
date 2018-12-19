@@ -54,10 +54,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
+  int _selectedIndex = 0;
   final List<Widget> _children = [
     WorkoutsWidget(),
-    StatsWidget(Colors.deepOrange),
+    StatsWidget(Colors.white),
     ScheduleWidget(Colors.green)
   ];
 
@@ -78,6 +79,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void onSelected(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -87,19 +94,24 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
 
-        title: Text(widget.title, style: TextStyle(color: Colors.green),),
+        title: Text(widget.title, style: TextStyle(color: Colors.green)),
         backgroundColor: Colors.white,
+        flexibleSpace: Row(
+          children: <Widget>[
+            Text("Meh")
+          ],
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.more_vert),
             onPressed: ()=> print("More Pressed"),
           )
         ],
-      ),
+      ),*/
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -121,23 +133,58 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: Text("Home"),
               trailing: Icon(Icons.home),
-              onTap: ()=> print("Home Pressed"),
+              selected: _selectedIndex == 0,
+              onTap: ()=> onSelected(0),
             ),
             ListTile(
               title: Text("Notifications"),
               trailing: Icon(Icons.mail),
-              onTap: ()=> print("Notifications Pressed"),
+              selected: _selectedIndex == 1,
+              onTap: ()=> onSelected(1),
             ),
             Divider(),
             ListTile(
               title: Text("Settings"),
               trailing: Icon(Icons.settings),
-              onTap: ()=> print("Settings Pressed"),
+              onTap: ()=> print("Options Pressed"),
             ),
           ],
         ),
       ),
-      body: _children[_currentIndex],
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: 150,
+            floating: false,
+            pinned: true,
+            backgroundColor: Colors.white,
+            flexibleSpace: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Text("Devon Orr Meh", style: TextStyle(color: Colors.green)),
+                FlexibleSpaceBar(
+                  title: Text("Devon Orr", style: TextStyle(color: Colors.green)),
+                  centerTitle: true,
+                ),
+              ],
+            ),
+            forceElevated: true,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.more_vert),
+                onPressed: ()=> print("More Pressed"),
+              )
+            ],
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) => ListTile(
+              title: Text("List item $index"),
+            ))
+          )
+        ],
+      ),
+      //_children[_currentIndex],
         /*Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
