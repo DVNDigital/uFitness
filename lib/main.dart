@@ -179,9 +179,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text("Devon Orr", style: TextStyle(color: Colors.green)),
                 centerTitle: true,
                 background: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Row(
+                    Table(
+                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                      children: <TableRow>[
+                        TableRow(
+                          children: <Widget>[
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Text("Body Weight", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                                Text("$_weight lbs", style: TextStyle(color: Colors.green)),
+                              ],
+                            ),
+                            Image(
+                              image: AssetImage('assets/ic_account_circle.png'),
+                              color: Colors.green,
+                              height: 80,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text("Body Fat", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                                Text("$_bfp %", style: TextStyle(color: Colors.green)),
+                              ],
+                            ),
+                          ],
+
+                        )
+                      ],
+                    ),
+
+                    /*Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -200,12 +231,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         Column(
                           children: <Widget>[
-                            Text("Bodyfat", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                            Text("Bodyfaththtrhtr", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
                             Text("$_bfp %", style: TextStyle(color: Colors.green)),
                           ],
                         ),
                       ],
-                    ),
+                    ),*/
                     Padding(
                         padding: EdgeInsets.only(
                             bottom: 55
