@@ -8,12 +8,8 @@ class ScheduleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Calendar(
-      onSelectedRangeChange: (range) =>
-          print("Range is ${range.item1}, ${range.item2}"),
-      isExpandable: true,
-      showCalendarPickerIcon: false,
-      showTodayAction: false,
+    return Container(
+      color: Colors.blueGrey,
     );
   }
 

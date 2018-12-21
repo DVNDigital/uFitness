@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ufitness/workouts_widget.dart';
-import 'package:ufitness/stats_widget.dart';
+import 'package:ufitness/me_widget.dart';
 import 'package:ufitness/schedule_widget.dart';
 
 void main() => runApp(MyApp());
@@ -56,9 +56,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 1;
   int _selectedIndex = 0;
+  int _count = 0;
+  int _weight = 200;
+  double _bfp = 10.0;
   final List<Widget> _children = [
     WorkoutsWidget(),
-    StatsWidget(Colors.white),
+    MeWidget(),
     ScheduleWidget(Colors.green)
   ];
 
@@ -85,6 +88,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<Null> _handleRefresh() async{
+    setState(() {
+      _weight += 1;
+      _bfp += 0.5;
+    });
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -97,13 +108,12 @@ class _MyHomePageState extends State<MyHomePage> {
       /*appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        //elevation: 0,
-        title: Text(widget.title, style: TextStyle(color: Colors.green)),
-        backgroundColor: Colors.white,
-        flexibleSpace: Row(
-          children: <Widget>[
-            Text("Meh")
-          ],
+        elevation: 0,
+        title: Text("Devon Orr", style: TextStyle(color: Colors.green)),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.mail_outline),
+          onPressed: ()=> print("Notifications Pressed"),
         ),
         actions: <Widget>[
           IconButton(
@@ -112,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),*/
-      drawer: Drawer(
+      /*drawer: Drawer(
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
@@ -150,40 +160,78 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-      ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            expandedHeight: 150,
-            floating: false,
-            pinned: true,
-            backgroundColor: Colors.white,
-            flexibleSpace: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Spacer(),
-                FlexibleSpaceBar(
-                  title: Text("Devon Orr", style: TextStyle(color: Colors.green)),
-                  centerTitle: true,
+      ),*/
+      body: RefreshIndicator(
+        onRefresh: _handleRefresh,
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              expandedHeight: 150,
+              floating: false,
+              pinned: true,
+              backgroundColor: Colors.white,
+              leading: IconButton(
+                icon: Icon(Icons.mail_outline),
+                onPressed: ()=> print("Notifications Pressed"),
+              ),
+
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text("Devon Orr", style: TextStyle(color: Colors.green)),
+                centerTitle: true,
+                background: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Text("Weight", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                            Text("$_weight lbs", style: TextStyle(color: Colors.green)),
+                          ],
+                        ),
+                        Image(
+                          image: AssetImage('assets/ic_account_circle.png'),
+                          color: Colors.green,
+                          height: 80,
+
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text("Bodyfat", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                            Text("$_bfp %", style: TextStyle(color: Colors.green)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            bottom: 55
+                        )
+                    ),
+                  ],
                 ),
-                //Text("Devon Orr Meh", style: TextStyle(color: Colors.green)),
+              ),
+              forceElevated: true,
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.more_vert),
+                  onPressed: ()=> print("More Pressed"),
+                )
               ],
             ),
-            forceElevated: true,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: ()=> print("More Pressed"),
-              )
-            ],
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) => ListTile(
-              title: Text("List item $index"),
-            ))
-          )
-        ],
+            SliverFillRemaining(
+              child: _children[_currentIndex],
+            )
+            /*SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) => ListTile(
+                  title: Text("List item $index"),
+                ))
+            )*/
+          ],
+        ),
       ),
       //_children[_currentIndex],
         /*Center(
@@ -232,7 +280,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.timeline),
-            title: Text("My Stats"),
+            title: Text("Me"),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),

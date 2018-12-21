@@ -14,13 +14,16 @@ class _WorkoutsWidgetState extends State<WorkoutsWidget>{
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
+    return Container(
+      color: Colors.green,
+    )
+      /*RefreshIndicator(
       onRefresh: _handleRefresh,
       child: ListView(
         padding: EdgeInsets.fromLTRB(5,15,5,15),
         children: _getItems(),
       ),
-    );
+    )*/;
   }
 
   List<Widget> _getItems(){
